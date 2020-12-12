@@ -3,7 +3,6 @@ const router = express.Router();
 
 const auth = require('../middleware/auth');    // importer le middleware authentification
 const multer = require('../middleware/multer-config'); // importer multer : gestion de fichiers envoyés avec protocole http
-
 const sauceCtrl = require('../controllers/sauce');  
 
 router.post('/', auth, multer, sauceCtrl.createSauce); // avec  multer on inclut un fichier (image) dans la requette

@@ -3,6 +3,7 @@ const fs = require('fs'); // importer fs (FileSystem) pour gerer les fichiers (s
 
 exports.createSauce = (req, res, next) => { // ajouter une sauce
   const sauceObject = JSON.parse(req.body.sauce); // transfomation de chaine de carac en objet JS
+  
   //delete sauceObject._id;
   const sauce = new Sauce({
     ...sauceObject, // totalité de l'objet
@@ -13,6 +14,7 @@ exports.createSauce = (req, res, next) => { // ajouter une sauce
     usersLiked: [],
     usersDisliked: []
   });
+
   // Enregistre l'objet dans la base
   sauce.save()    
     .then((sauce) => res.status(201).json({ message: 'sauce enregistrée !'}))// reponse à la FE sinon expiration de la req
@@ -27,7 +29,7 @@ exports.getOneSauce = (req, res, next) => {  //  trouver une sauce
 };
 
 exports.modifySauce = (req, res, next) => {   //  modifier les caractéristiques d'une sauce
-  const sauceObject = req.file ?  // si nouveau fichier ( pour une image par exemple )
+  const sauceObject = req.file ?  // si nouveau fichier ( pour une image )
     {
       ...JSON.parse(req.body.sauce), // recuperation de toutes les  infos sur l'objet
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // désignation de l'url pour l'image
@@ -38,7 +40,7 @@ exports.modifySauce = (req, res, next) => {   //  modifier les caractéristiques
 };
 
 exports.deleteSauce = (req, res, next) => {  //  supprimer une sauce
-   Sauce.findOne({ _id: req.params.id })   // _id est l'id récupére
+   Sauce.findOne({ _id: req.params.id })   // récupération de la sauce à partir de l'Id
     .then(sauce => {
       const filename = sauce.imageUrl.split('/images/')[1]; // nom du fichier est celui qui suit le repertoire 'images'.
       fs.unlink(`images/${filename}`, () => { // suppression du fichier

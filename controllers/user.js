@@ -2,8 +2,6 @@ const bcrypt = require('bcrypt');  //
 const jwt = require('jsonwebtoken'); // importation de JWT pour la création et vérification des token
 
 const passwordValidator = require('password-validator'); //importation de password-validator
-//const maskData = require('maskdata');//mask data is used to hide part of the data
-
 const User = require('../models/user');
 
 exports.signup = (req, res, next) => {
@@ -35,7 +33,7 @@ exports.login = (req, res, next) => {
             userId: user._id,
             token: jwt.sign(  // fonction sign de jwt avec 3 arguments
               { userId: user._id },  // 1 userID
-              'RANDOM_TOKEN_SECRET', // 2 chaine de caractères du token
+              'RANDOM_TOKEN_SECRET', // 2 chaine de caractères du token qui peut ê tre crée par le développeur
               { expiresIn: '24h' } //   3 delai d'expiration du token
             )
           });

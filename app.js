@@ -11,6 +11,7 @@ const userRoutes = require('./routes/user'); // designation du router pour les u
 const sauceRoutes = require('./routes/sauce'); // designation du router pour les sauces
 
 // paramétrage des headers de sécurité
+
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*'); // nom de domaine
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');

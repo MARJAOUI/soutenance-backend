@@ -1,6 +1,4 @@
 const validate = require('mongoose-validator'); //mongoose validation 
-
-/***This is the input validation for the sauce creation and modification (will be used in models/sauce.js)***/
   
  //Sauce validation : name, manufacturer et pepper 
 exports.stringValidation = [

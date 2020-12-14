@@ -3,8 +3,8 @@ const fs = require('fs'); // importer fs (FileSystem) pour gerer les fichiers (s
 
 exports.createSauce = (req, res, next) => { // ajouter une sauce
   const sauceObject = JSON.parse(req.body.sauce); // transfomation de chaine de carac en objet JS
+
   
-  //delete sauceObject._id;
   const sauce = new Sauce({
     ...sauceObject, // totalité de l'objet
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`, //recuperation dynamique de l'url de l'image
@@ -20,7 +20,6 @@ exports.createSauce = (req, res, next) => { // ajouter une sauce
     .then((sauce) => res.status(201).json({ message: 'sauce enregistrée !'}))// reponse à la FE sinon expiration de la req
     .catch(error => res.status(400).json({ error }));
 };
-
 
 exports.getOneSauce = (req, res, next) => {  //  trouver une sauce
   Sauce.findOne({_id: req.params.id})  //  determiner la sauce avec son id
@@ -90,7 +89,7 @@ exports.likeSauce = (req, res, next) => { // liker ou disliker une sauce
               .catch(error => res.status(400).json({ error }));
           } else if (sauce.usersDisliked.includes(req.body.userId)) { //if userId already in usersDisliked array
             //décrémente le disLike de 1, Suppression de l userId de la table usersDisliked 
-            sauce.updateOne({_id: req.params.id}, {$inc: {dislikes: -1}, $pull: {usersDisliked: req.body.userId}, _id: req.params.id})
+            Sauce.updateOne({_id: req.params.id}, {$inc: {dislikes: -1}, $pull: {usersDisliked: req.body.userId}, _id: req.params.id})
               .then(() => res.status(201).json({ message: 'Dislike supprimé'}))
               .catch(error => res.status(400).json({ error })); 
           }

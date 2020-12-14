@@ -6,7 +6,7 @@ const User = require('../models/user');
 
 exports.signup = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)   // algorythme de cryptage du mot de passe: fonction asynchrone
-    .then(hash => {
+    .then(hash => {                   // mot de pass sous forme d'algotythme
       const user = new User({        //  déclaration d'un nouvel utilisateur avec pour objet
         email: req.body.email,      //  adresse mail
         password: hash             // mot de passe créé et crypté
@@ -31,7 +31,7 @@ exports.login = (req, res, next) => {
           }
           res.status(200).json({ // si MDP identique
             userId: user._id,
-            token: jwt.sign(  // fonction sign de jwt avec 3 arguments
+            token: jwt.sign(  // fonction sign de jwt avec 3 parametres
               { userId: user._id },  // 1 userID
               'RANDOM_TOKEN_SECRET', // 2 chaine de caractères du token qui peut ê tre crée par le développeur
               { expiresIn: '24h' } //   3 delai d'expiration du token

@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose'); 
 const path = require('path');
 
-
 const Sauce = require('./models/sauce'); // désignation du model pour les sauces
 const User = require('./models/user');     // désignation du model pour les users
 const userRoutes = require('./routes/user'); // designation du router pour les users
@@ -26,11 +25,12 @@ app.use(bodyParser.json());
 mongoose.connect('mongodb+srv://ocrPekocko:OCR2020@pekocko.okefo.mongodb.net/test?retryWrites=true&w=majority',
 	{ useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
   .then(() => {
-  	console.log('Connexion à MongoDB réussie !');
+  	console.log('Connexion à MongoDB avec ocrPekocko réussie !');
   })
   .catch(() => {
-  	console.log('Connexion à MongoDB échouée !');
+  	console.log('Connexion à MongoDB  avec ocrPekocko échouée !');
 });
+
 app.use('/images', express.static(path.join(__dirname, 'images'))); // express sert le dossier statique ' images'
 
 // addresses des chemins de l' API

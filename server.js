@@ -1,4 +1,4 @@
-const http = require('http'); 
+const http = require('http'); // importation du package http
 const app = require('./app');
 
 const normalizePort = val => {
@@ -12,8 +12,7 @@ const normalizePort = val => {
   }
   return false;
 };
-const port = normalizePort(process.env.PORT || '3000');  /// configuration du port en local host
-app.set('port', port);
+const port = normalizePort(process.env.PORT || '3000');  /// Variable environnement du port utilisé sinon port 3000
 
 const errorHandler = error => {
   if (error.syscall !== 'listen') {

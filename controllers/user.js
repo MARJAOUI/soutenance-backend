@@ -5,13 +5,12 @@ const passwordValidator = require('password-validator'); //importation de passwo
 const User = require('../models/user');
 const mongoMask = require('mongo-mask');
 
+
 exports.signup = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)   // algorythme de cryptage du mot de passe: fonction asynchrone
     .then(hash => {                   // mot de pass sous forme d'algotythme
       const user = new User({        //  déclaration d'un nouvel utilisateur avec pour objet
-      //email: req.body.email,      //  adresse mail
-         //email: maskData.maskEmail2(req.body.email),
-        email: mongoMask.maskEmail(req.body.email),
+      email: mongoMask.maskEmail(req.body.email),
         password: hash             // mot de passe créé et crypté
       });
       //console.log(email);
